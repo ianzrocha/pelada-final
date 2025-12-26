@@ -1,0 +1,176 @@
+:root {
+  --font-sans: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --radius: 12px;
+  --brand-yellow: #f6c84c;
+  --brand-ink: #0b0b0b;
+  --bg: #0f1720; /* deep slate */
+  --surface: #0f1a23;
+  --muted: #9aa0a6;
+  --accent: #646cff;
+  --glass: rgba(255,255,255,0.03);
+  --card-radius: 14px;
+  --card-shadow: 0 6px 24px rgba(2,6,23,0.6);
+  color-scheme: dark;
+  color: #e9eef2;
+  background-color: var(--bg);
+  font-family: var(--font-sans);
+  line-height: 1.45;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Aggressive full-bleed reset to force the app to fill the entire viewport */
+* { box-sizing: border-box; }
+
+html, body, #root, .app-container, nav.navbar {
+  width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* remove internal card rounding so blocks can align edge-to-edge if desired */
+.card { border-radius: 0 !important; }
+
+/* bordered variant for highlighted cards */
+.card-bordered { border: 1px solid rgba(246,200,76,0.18); box-shadow: 0 6px 18px rgba(2,6,23,0.45); }
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100%;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body {
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(100,108,255,0.06), transparent), linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 10px;
+  border: 0;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  background-color: transparent;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+button:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: linear-gradient(90deg,var(--brand-yellow), #ffd36b);
+  color: var(--brand-ink);
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(246,200,76,0.14);
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--muted);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Utilities */
+/* make container truly full-bleed */
+.app-container { width:100vw; max-width:none; margin:0; padding:0; box-sizing:border-box; }
+
+/* internal page padding to keep content readable while allowing full-bleed backgrounds */
+.page-container { padding:1.25rem 2rem; box-sizing:border-box; }
+
+/* App header / navbar */
+.app-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 0; }
+.brand { display:flex; gap:0.75rem; align-items:center; text-decoration:none; color:inherit; }
+.brand .logo-mark { width:44px; height:44px; border-radius:10px; background: linear-gradient(135deg,var(--brand-yellow), #ffd36b); box-shadow: 0 6px 20px rgba(6,8,12,0.6); display:flex; align-items:center; justify-content:center; font-weight:800; }
+.nav { display:flex; gap:0.5rem; align-items:center; }
+.nav a { color:var(--muted); padding:0.5rem 0.7rem; border-radius:8px; font-weight:600; text-decoration:none }
+.nav a.active, .nav a:hover { color:var(--accent); background: rgba(100,108,255,0.04); }
+
+/* Force navbar and footer to be full-bleed with no extra left/right padding */
+nav.navbar{ padding-left:0 !important; padding-right:0 !important; }
+nav.navbar .app-container{ padding-left:0 !important; padding-right:0 !important; width:100%; }
+.navbar-brand{ margin-left:0; }
+.page-container{ padding:0; }
+
+/* Full-bleed hero/header */
+.hero {
+  width:100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  padding: 36px 24px;
+}
+
+/* Make cards full-width and flush with no rounded corners for true edge-to-edge layout */
+.card { border-radius: 0; }
+
+/* Visible accent border when full-bleed doesn't reach the browser edge */
+.app-container { border-left: none; }
+nav.navbar { border-left: none; }
+
+/* Modern cards */
+.card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--card-radius); padding:1rem; box-shadow: var(--card-shadow); border: 1px solid rgba(255,255,255,0.03); }
+.card-quiet { background: transparent; box-shadow:none; border: none; }
+
+.participant-card, .match-card { display:flex; gap:1rem; align-items:center; padding:0.9rem; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent); }
+.participant-avatar { width:56px; height:56px; border-radius:10px; background:var(--glass); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--brand-yellow); }
+.meta { color:var(--muted); font-size:0.9rem }
+
+input[type="search"], input[type="text"], input[type="date"], select, textarea { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); color: inherit; padding:0.6rem 0.75rem; border-radius:10px; }
+input::placeholder { color: rgba(255,255,255,0.35); }
+
+.footer { margin-top:2rem; padding:1rem 0; color:var(--muted); font-size:0.9rem; text-align:center }
+
+.text-brand { color: var(--brand-yellow) }
+.muted { color: var(--muted) }
+
+/* Footer nav styles */
+/* Nav actions (inlined from Footer) */
+.nav-actions { display:flex; align-items:center; justify-content:center; height:56px; padding:6px 0; width:100%; background-color: #212529;}
+.nav-actions-list { list-style:none; margin:0; padding:0; display:flex; gap:18px; align-items:center }
+.nav-item { display:flex; gap:8px; align-items:center; cursor:pointer; padding:8px 14px; border-radius:12px; color:var(--muted); transition: color .12s ease, background .12s ease, box-shadow .12s ease; }
+.nav-item:hover { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color:var(--brand-yellow); }
+.nav-item.active { background: linear-gradient(90deg, rgba(100,108,255,0.14), rgba(100,108,255,0.06)); color:var(--accent); box-shadow: 0 6px 18px rgba(6,8,12,0.5); border: 1px solid rgba(100,108,255,0.12); }
+.nav-icon { display:inline-flex; width:20px; height:20px; align-items:center; justify-content:center; color:var(--muted); }
+.nav-label { font-weight:600; font-size:0.95rem; letter-spacing:0.2px }
+
+/* Make sure navbar content aligns visually with app container */
+nav.navbar .app-container { display:flex; align-items:center; padding-left:2rem; padding-right:2rem }
+.px-2 {color: yellow;}
+.text-muted {color: yellow;}
