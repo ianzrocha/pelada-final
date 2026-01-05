@@ -12,7 +12,7 @@ export default function ParticipantCard({p}){
             <div>
               <div className="text-warning" style={{fontWeight:700}}>{p.name}</div>
               <div className="muted small">{p.fantasyName || ''}</div>
-              <div className="muted small">Nasc.: {p.birthDate || '-'}</div>
+              <div className="muted small">Nasc: {p.birthDate || '-'}</div>
               <div className="muted small">Tipo: {p.type || '-'} • {p.position || '-'} • {p.active ? 'Ativo' : 'Inativo'}</div>
             </div>
             <div style={{textAlign:'right'}}>

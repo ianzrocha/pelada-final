@@ -38,7 +38,7 @@ body {
 }
 
 /* remove internal card rounding so blocks can align edge-to-edge if desired */
-.card { border-radius: 0 !important; }
+.card { border-radius: 8px; }
 
 /* bordered variant for highlighted cards */
 .card-bordered { border: 1px solid rgba(246,200,76,0.18); box-shadow: 0 6px 18px rgba(2,6,23,0.45); }
@@ -145,7 +145,9 @@ nav.navbar .app-container{ padding-left:0 !important; padding-right:0 !important
 nav.navbar { border-left: none; }
 
 /* Modern cards */
-.card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--card-radius); padding:1rem; box-shadow: var(--card-shadow); border: 1px solid rgba(255,255,255,0.03); }
+.card { background: linear-gradient(180deg, rgba(255,255,255,0.02),
+   rgba(255,255,255,0.01)); 
+   border-radius: var(--card-radius); padding:1rem; box-shadow: var(--card-shadow); border: 1px solid rgba(255,255,255,0.03); }
 .card-quiet { background: transparent; box-shadow:none; border: none; }
 
 .participant-card, .match-card { display:flex; gap:1rem; align-items:center; padding:0.9rem; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent); }
@@ -166,7 +168,7 @@ input::placeholder { color: rgba(255,255,255,0.35); }
 .nav-actions-list { list-style:none; margin:0; padding:0; display:flex; gap:18px; align-items:center }
 .nav-item { display:flex; gap:8px; align-items:center; cursor:pointer; padding:8px 14px; border-radius:12px; color:var(--muted); transition: color .12s ease, background .12s ease, box-shadow .12s ease; }
 .nav-item:hover { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color:var(--brand-yellow); }
-.nav-item.active { background: linear-gradient(90deg, rgba(100,108,255,0.14), rgba(100,108,255,0.06)); color:var(--accent); box-shadow: 0 6px 18px rgba(6,8,12,0.5); border: 1px solid rgba(100,108,255,0.12); }
+.nav-item.active { background: linear-gradient(90deg, rgba(162, 171, 240, 0.14), rgb(5 53 141 / 6%)); color:var(--accent); box-shadow: 0 6px 18px rgba(6,8,12,0.5); border: 1px solid rgba(100,108,255,0.12); }
 .nav-icon { display:inline-flex; width:20px; height:20px; align-items:center; justify-content:center; color:var(--muted); }
 .nav-label { font-weight:600; font-size:0.95rem; letter-spacing:0.2px }
 
@@ -174,3 +176,15 @@ input::placeholder { color: rgba(255,255,255,0.35); }
 nav.navbar .app-container { display:flex; align-items:center; padding-left:2rem; padding-right:2rem }
 .px-2 {color: yellow;}
 .text-muted {color: yellow;}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn btn-sm btn-ghost{
+  padding: 0.25rem 0.5rem;
+  
+}

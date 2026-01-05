@@ -32,7 +32,7 @@ export default function Home({onNavigate}){
         <p className="muted">Organize participantes, partidas e a operação de peladas.</p>
       </div>
 
-      <div className="d-flex flex-wrap" style={{gap:16}}>
+      <div className="d-flex flex-wrap" style={{gap:16}} border-radius="100px">
         <div style={{flex:'1 1 320px'}}>
           <div className="card p-3 card-bordered" style={{height:'100%'}}>
             <h6 className="muted">Participantes</h6>
