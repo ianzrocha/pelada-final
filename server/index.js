@@ -1,8 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import { initDb } from './init-db.js'
 import { getParticipants, addParticipant, updateParticipant, removeParticipant } from './db.js'
-import { getMatches, addMatch, updateMatch, removeMatch, getMatch } from './db.js'
+import { getMatches, addMatch, updateMatch, removeMatch, getMatch, applyNewResultsToMatch } from './db.js'
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -10,11 +11,14 @@ const port = process.env.PORT || 4000
 app.use(cors())
 app.use(bodyParser.json())
 
+// Initialize database
+await initDb()
+
 app.get('/api/health', (req, res) => res.json({ok:true}))
 
-app.get('/api/participants', (req, res) => {
+app.get('/api/participants', async (req, res) => {
   try{
-    const rows = getParticipants()
+    const rows = await getParticipants()
     res.json(rows)
   }catch(e){
     console.error(e)
@@ -22,9 +26,9 @@ app.get('/api/participants', (req, res) => {
   }
 })
 
-app.post('/api/participants', (req, res) => {
+app.post('/api/participants', async (req, res) => {
   try{
-    const id = addParticipant(req.body)
+    const id = await addParticipant(req.body)
     res.status(201).json({id})
   }catch(e){
     console.error(e)
@@ -32,9 +36,9 @@ app.post('/api/participants', (req, res) => {
   }
 })
 
-app.put('/api/participants/:id', (req, res) => {
+app.put('/api/participants/:id', async (req, res) => {
   try{
-    updateParticipant(req.params.id, req.body)
+    await updateParticipant(req.params.id, req.body)
     res.json({ok:true})
   }catch(e){
     console.error(e)
@@ -42,9 +46,9 @@ app.put('/api/participants/:id', (req, res) => {
   }
 })
 
-app.delete('/api/participants/:id', (req, res) => {
+app.delete('/api/participants/:id', async (req, res) => {
   try{
-    removeParticipant(req.params.id)
+    await removeParticipant(req.params.id)
     res.json({ok:true})
   }catch(e){
     console.error(e)
@@ -53,9 +57,9 @@ app.delete('/api/participants/:id', (req, res) => {
 })
 
 // Matches endpoints
-app.get('/api/matches', (req, res) => {
+app.get('/api/matches', async (req, res) => {
   try{
-    const rows = getMatches()
+    const rows = await getMatches()
     res.json(rows)
   }catch(e){
     console.error(e)
@@ -63,9 +67,9 @@ app.get('/api/matches', (req, res) => {
   }
 })
 
-app.get('/api/matches/:id', (req, res) => {
+app.get('/api/matches/:id', async (req, res) => {
   try{
-    const m = getMatch(req.params.id)
+    const m = await getMatch(req.params.id)
     if(!m) return res.status(404).json({error:'not found'})
     res.json(m)
   }catch(e){
@@ -74,9 +78,9 @@ app.get('/api/matches/:id', (req, res) => {
   }
 })
 
-app.post('/api/matches', (req, res) => {
+app.post('/api/matches', async (req, res) => {
   try{
-    const id = addMatch(req.body)
+    const id = await addMatch(req.body)
     res.status(201).json({id})
   }catch(e){
     console.error(e)
@@ -84,18 +88,15 @@ app.post('/api/matches', (req, res) => {
   }
 })
 
-app.put('/api/matches/:id', (req, res) => {
+app.put('/api/matches/:id', async (req, res) => {
   try{
     // update match data
-    updateMatch(req.params.id, req.body)
+    await updateMatch(req.params.id, req.body)
     // if results provided, apply newly added results to participants
     if(req.body.results){
       try{
-        // lazy import apply function from db
-        import('./db.js').then(mod => {
-          try{ mod.applyNewResultsToMatch(req.params.id, req.body.results) }catch(e){console.error('applyResults error', e)}
-        })
-      }catch(e){ console.error(e) }
+        await applyNewResultsToMatch(req.params.id, req.body.results)
+      }catch(e){ console.error('applyResults error', e)}
     }
     res.json({ok:true})
   }catch(e){
@@ -104,9 +105,9 @@ app.put('/api/matches/:id', (req, res) => {
   }
 })
 
-app.delete('/api/matches/:id', (req, res) => {
+app.delete('/api/matches/:id', async (req, res) => {
   try{
-    removeMatch(req.params.id)
+    await removeMatch(req.params.id)
     res.json({ok:true})
   }catch(e){
     console.error(e)
