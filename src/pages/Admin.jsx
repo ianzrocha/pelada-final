@@ -42,7 +42,7 @@ export default function Admin(){
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3 className="text-warning">Administração</h3>
+        <h3 className="text-warning" style={{padding: "10px"}}>Administração</h3>
         <div className="d-flex gap-2">
           <button className="btn btn-primary" onClick={exportCSV}>Exportar CSV</button>
         </div>

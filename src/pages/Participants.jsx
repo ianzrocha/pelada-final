@@ -34,7 +34,7 @@ export default function Participants(){
     <div>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
-          <h3 className="text-warning">Participantes</h3>
+          <h3 className="text-warning" style={{padding: '10px'}}>Participantes</h3>
           <div className="small muted">Lista em ordem alfabética • Pesquise por nome</div>
         </div>
         <div className="d-flex gap-2 align-items-center">

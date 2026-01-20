@@ -35,7 +35,7 @@ export default function Matches({openCreate=false}){
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3 className="text-warning">Partidas</h3>
+        <h3 className="text-warning" style={{padding:"10px"}}>Partidas</h3>
         <div>
           <button className="btn btn-outline-light me-2" onClick={()=>setShowForm(s=>!s)}>{showForm ? 'Fechar' : 'Criar Partida'}</button>
         </div>
