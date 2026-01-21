@@ -36,16 +36,16 @@ function MatchForm({ onSubmit, onCancel, initialData }: MatchFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card bg-dark border-warning p-4">
-      <h4 className="text-warning mb-4">
+    <form onSubmit={handleSubmit} className="card bg-dark border-primary p-4">
+      <h4 className="text-primary mb-4">
         {initialData ? '✏️ Editar Partida' : '➕ Nova Partida'}
       </h4>
 
       <div className="mb-3">
-        <label className="form-label text-warning fw-bold">Título *</label>
+        <label className="form-label text-primary fw-bold">Título *</label>
         <input
           type="text"
-          className="form-control bg-dark border-warning text-light"
+          className="form-control bg-dark border-primary text-light"
           name="title"
           value={formData.title}
           onChange={handleChange}
@@ -54,9 +54,9 @@ function MatchForm({ onSubmit, onCancel, initialData }: MatchFormProps) {
       </div>
 
       <div className="mb-3">
-        <label className="form-label text-warning fw-bold">Descrição</label>
+        <label className="form-label text-primary fw-bold">Descrição</label>
         <textarea
-          className="form-control bg-dark border-warning text-light"
+          className="form-control bg-dark border-primary text-light"
           name="description"
           value={formData.description || ''}
           onChange={handleChange}
@@ -67,20 +67,20 @@ function MatchForm({ onSubmit, onCancel, initialData }: MatchFormProps) {
 
       <div className="row">
         <div className="col-md-6 mb-3">
-          <label className="form-label text-warning fw-bold">Data *</label>
+          <label className="form-label text-primary fw-bold">Data *</label>
           <input
             type="date"
-            className="form-control bg-dark border-warning text-light"
+            className="form-control bg-dark border-primary text-light"
             name="match_date"
             value={formData.match_date}
             onChange={handleChange}
           />
         </div>
         <div className="col-md-6 mb-3">
-          <label className="form-label text-warning fw-bold">Quantidade de Jogos</label>
+          <label className="form-label text-primary fw-bold">Quantidade de Jogos</label>
           <input
             type="number"
-            className="form-control bg-dark border-warning text-light"
+            className="form-control bg-dark border-primary text-light"
             name="games_count"
             value={formData.games_count}
             onChange={handleChange}
@@ -94,7 +94,7 @@ function MatchForm({ onSubmit, onCancel, initialData }: MatchFormProps) {
         <button type="button" className="btn btn-outline-light" onClick={onCancel}>
           Cancelar
         </button>
-        <button type="submit" className="btn btn-warning fw-bold">
+        <button type="submit" className="btn btn-primary fw-bold">
           {initialData ? '💾 Atualizar' : '➕ Criar Partida'}
         </button>
       </div>

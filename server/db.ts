@@ -24,13 +24,14 @@ export async function addParticipant(p: any) {
     defensive_rating,
     speed_rating,
   } = p;
+  const birth = typeof birth_date === 'string' ? (birth_date.trim() === '' ? null : birth_date) : birth_date ?? null;
 
   const result = await pool.query(
     `INSERT INTO participants 
     (name, fantasy_name, birth_date, type, position, active, offensive_rating, defensive_rating, speed_rating) 
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) 
     RETURNING *`,
-    [name, fantasy_name, birth_date || null, type, position, active ?? true, offensive_rating ?? 1, defensive_rating ?? 1, speed_rating ?? 1]
+    [name, fantasy_name, birth, type, position, active ?? true, offensive_rating ?? 1, defensive_rating ?? 1, speed_rating ?? 1]
   );
   return result.rows[0];
 }
@@ -60,7 +61,7 @@ export async function updateParticipant(id: number, p: any) {
         goals = $12, own_goals = $13, matches_played = $14, updated_at = CURRENT_TIMESTAMP 
     WHERE id = $15 
     RETURNING *`,
-    [name, fantasy_name, birth_date, type, position, active, offensive_rating, defensive_rating, speed_rating, fouls, cards, goals, own_goals, matches_played, id]
+    [name, fantasy_name, (typeof birth_date === 'string' ? (birth_date.trim() === '' ? null : birth_date) : birth_date), type, position, active, offensive_rating, defensive_rating, speed_rating, fouls, cards, goals, own_goals, matches_played, id]
   );
   return result.rows[0];
 }

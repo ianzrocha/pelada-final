@@ -13,21 +13,18 @@ function MatchCard({ match, onRemove }: MatchCardProps) {
 
   return (
     <>
-      <div
-        className="card bg-dark border-warning shadow-lg"
-        style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
-      >
+      <div className="card shadow-lg" style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}>
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-start mb-3">
             <div className="flex-grow-1">
-              <h5 className="card-title text-warning fw-bold mb-2">{match.title}</h5>
+              <h5 className="card-title text-primary fw-bold mb-2">{match.title}</h5>
               <div className="d-flex gap-2">
-                <span className="badge bg-secondary">📅 {matchDate}</span>
-                <span className="badge bg-info">⚽ {match.games_count} jogo{match.games_count > 1 ? 's' : ''}</span>
+                <span className="badge badge-secondary">📅 {matchDate}</span>
+                <span className="badge badge-info">⚽ {match.games_count} jogo{match.games_count > 1 ? 's' : ''}</span>
                 <span className={`badge ${
-                  match.status === 'finished' ? 'bg-success' :
-                  match.status === 'in_progress' ? 'bg-warning' :
-                  'bg-secondary'
+                  match.status === 'finished' ? 'badge-success' :
+                  match.status === 'in_progress' ? 'badge-warning' :
+                  'badge-secondary'
                 }`}>
                   {match.status === 'finished' ? '✅ Finalizada' :
                    match.status === 'in_progress' ? '🔴 Em Andamento' :
@@ -56,7 +53,7 @@ function MatchCard({ match, onRemove }: MatchCardProps) {
           <div className="row mt-4">
             <div className="col-md-3 mb-2">
               <button
-                className="btn btn-sm btn-outline-warning w-100"
+                className="btn btn-sm btn-outline-primary w-100"
                 onClick={() => setShowDetail(true)}
               >
                 📋 Organização
@@ -64,7 +61,7 @@ function MatchCard({ match, onRemove }: MatchCardProps) {
             </div>
             <div className="col-md-3 mb-2">
               <button
-                className="btn btn-sm btn-outline-warning w-100"
+                className="btn btn-sm btn-outline-primary w-100"
                 onClick={() => setShowDetail(true)}
               >
                 👥 Times
@@ -72,7 +69,7 @@ function MatchCard({ match, onRemove }: MatchCardProps) {
             </div>
             <div className="col-md-3 mb-2">
               <button
-                className="btn btn-sm btn-outline-warning w-100"
+                className="btn btn-sm btn-outline-primary w-100"
                 onClick={() => setShowDetail(true)}
               >
                 ⚽ Partida
@@ -80,7 +77,7 @@ function MatchCard({ match, onRemove }: MatchCardProps) {
             </div>
             <div className="col-md-3 mb-2">
               <button
-                className="btn btn-sm btn-outline-warning w-100"
+                className="btn btn-sm btn-outline-primary w-100"
                 onClick={() => setShowDetail(true)}
               >
                 📊 Resultados

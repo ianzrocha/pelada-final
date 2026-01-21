@@ -7,7 +7,7 @@ function StarRating({ rating, maxRating = 5 }: StarRatingProps) {
   return (
     <div className="d-flex gap-1">
       {[...Array(maxRating)].map((_, i) => (
-        <span key={i} className={i < rating ? 'text-warning' : 'text-muted'}>
+        <span key={i} className={i < rating ? 'text-primary' : 'text-muted'}>
           ⭐
         </span>
       ))}

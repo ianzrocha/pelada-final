@@ -62,20 +62,20 @@ function Admin() {
     <div className="container py-5">
       <div className="row mb-4">
         <div className="col-lg-10 mx-auto">
-          <h1 className="text-warning mb-3">⚙️ Administração</h1>
+          <h1 className="text-primary mb-3">⚙️ Administração</h1>
         </div>
       </div>
 
       <div className="row mb-4">
         <div className="col-lg-10 mx-auto">
-          <div className="card bg-dark border-warning">
+          <div className="card bg-dark border-primary">
             <div className="card-body">
-              <h4 className="text-warning mb-3">📊 Resumo de Pagamentos</h4>
+              <h4 className="text-primary mb-3">📊 Resumo de Pagamentos</h4>
               <div className="row">
                 <div className="col-md-4">
                   <div className="bg-secondary bg-opacity-25 p-3 rounded mb-3">
                     <p className="text-light small mb-0">Mensalistas</p>
-                    <h5 className="text-warning">
+                    <h5 className="text-primary">
                       {participants.filter(p => p.type === 'Mensalista' && p.active).length}
                     </h5>
                   </div>
@@ -83,7 +83,7 @@ function Admin() {
                 <div className="col-md-4">
                   <div className="bg-secondary bg-opacity-25 p-3 rounded mb-3">
                     <p className="text-light small mb-0">Diaristas</p>
-                    <h5 className="text-warning">
+                    <h5 className="text-primary">
                       {participants.filter(p => p.type === 'Diarista' && p.active).length}
                     </h5>
                   </div>
@@ -91,7 +91,7 @@ function Admin() {
                 <div className="col-md-4">
                   <div className="bg-secondary bg-opacity-25 p-3 rounded mb-3">
                     <p className="text-light small mb-0">Total Ativo</p>
-                    <h5 className="text-warning">
+                    <h5 className="text-primary">
                       {participants.filter(p => p.active).length}
                     </h5>
                   </div>
@@ -104,14 +104,14 @@ function Admin() {
 
       <div className="row">
         <div className="col-lg-10 mx-auto">
-          <div className="card bg-dark border-warning">
-            <div className="card-header bg-dark border-warning">
+          <div className="card bg-dark border-primary">
+            <div className="card-header bg-dark border-primary">
               <div className="row align-items-center">
                 <div className="col">
-                  <h4 className="text-warning mb-0">⚠️ Controle de Pagamentos</h4>
+                  <h4 className="text-primary mb-0">⚠️ Controle de Pagamentos</h4>
                 </div>
                 <div className="col-auto">
-                  <button className="btn btn-sm btn-warning" onClick={exportToCSV}>
+                  <button className="btn btn-sm btn-primary" onClick={exportToCSV}>
                     📥 Exportar CSV
                   </button>
                 </div>
@@ -139,7 +139,7 @@ function Admin() {
                       </td>
                       <td>
                         <button
-                          className="btn btn-sm btn-outline-danger"
+                          className="btn btn-sm btn-outline-primary"
                           onClick={() => handleResetStats(p.id!)}
                         >
                           🔄 Resetar Stats

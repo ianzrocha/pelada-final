@@ -107,9 +107,9 @@ function Participants() {
           </div>
         </div>
       ) : (
-        <div className="row g-4">
+        <div className="modern-grid">
           {filteredParticipants.map(p => (
-            <div key={p.id} className="col-md-6 col-lg-4">
+            <div key={p.id}>
               <ParticipantCard
                 participant={p}
                 onUpdate={handleUpdateParticipant}
@@ -119,6 +119,9 @@ function Participants() {
           ))}
         </div>
       )}
+
+      {/* Floating add button for quick access */}
+      <button className="fab-add" title="Adicionar" onClick={() => setShowForm(true)}>+</button>
     </div>
   )
 }

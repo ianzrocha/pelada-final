@@ -20,9 +20,9 @@ function MatchDetail({ match, onClose }: MatchDetailProps) {
   return (
     <div className="modal d-block" style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}>
       <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div className="modal-content bg-dark border-warning">
-          <div className="modal-header border-warning">
-            <h5 className="modal-title text-warning fw-bold">{match.title}</h5>
+        <div className="modal-content bg-dark border-primary">
+          <div className="modal-header border-primary">
+            <h5 className="modal-title text-primary fw-bold">{match.title}</h5>
             <button
               type="button"
               className="btn-close btn-close-white"
@@ -31,10 +31,10 @@ function MatchDetail({ match, onClose }: MatchDetailProps) {
           </div>
 
           {/* Tabs */}
-          <ul className="nav nav-tabs bg-dark border-bottom border-warning" role="tablist">
+          <ul className="nav nav-tabs bg-dark border-bottom border-primary" role="tablist">
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link fw-bold ${activeTab === 'organization' ? 'active text-warning' : 'text-light'}`}
+                className={`nav-link fw-bold ${activeTab === 'organization' ? 'active text-primary' : 'text-light'}`}
                 onClick={() => setActiveTab('organization')}
                 type="button"
               >
@@ -43,7 +43,7 @@ function MatchDetail({ match, onClose }: MatchDetailProps) {
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link fw-bold ${activeTab === 'teams' ? 'active text-warning' : 'text-light'}`}
+                className={`nav-link fw-bold ${activeTab === 'teams' ? 'active text-primary' : 'text-light'}`}
                 onClick={() => setActiveTab('teams')}
                 type="button"
               >
@@ -52,7 +52,7 @@ function MatchDetail({ match, onClose }: MatchDetailProps) {
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link fw-bold ${activeTab === 'game' ? 'active text-warning' : 'text-light'}`}
+                className={`nav-link fw-bold ${activeTab === 'game' ? 'active text-primary' : 'text-light'}`}
                 onClick={() => setActiveTab('game')}
                 type="button"
               >
@@ -61,7 +61,7 @@ function MatchDetail({ match, onClose }: MatchDetailProps) {
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link fw-bold ${activeTab === 'results' ? 'active text-warning' : 'text-light'}`}
+                className={`nav-link fw-bold ${activeTab === 'results' ? 'active text-primary' : 'text-light'}`}
                 onClick={() => setActiveTab('results')}
                 type="button"
               >

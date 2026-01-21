@@ -9,51 +9,49 @@ interface ParticipantCardProps {
 
 function ParticipantCard({ participant, onRemove }: ParticipantCardProps) {
   return (
-    <div className="card bg-dark border-warning h-100 shadow-lg hover-card">
+    <div className="card h-100 shadow-lg hover-card">
       <div className="card-body">
         <div className="mb-3">
-          <h5 className="card-title text-warning fw-bold mb-1">{participant.name}</h5>
-          {participant.fantasy_name && (
-            <p className="text-light small mb-2">
-              <em>"{participant.fantasy_name}"</em>
-            </p>
-          )}
-          <div className="d-flex gap-2">
-            <span className="badge bg-secondary">{participant.type}</span>
-            <span className="badge bg-primary">{participant.position}</span>
-            <span className={`badge ${participant.active ? 'bg-success' : 'bg-danger'}`}>
-              {participant.active ? 'Ativo' : 'Inativo'}
-            </span>
+          <div className="meta mb-2">
+            <h5 className="card-title text-primary fw-bold mb-0">{participant.name}</h5>
+            <div style={{ marginLeft: 'auto' }}>
+              <span className="badge badge-secondary">{participant.type}</span>
+              <span className="badge badge-primary ms-2">{participant.position}</span>
+              <span className={`badge ms-2 ${participant.active ? 'badge-success' : 'badge-danger'}`}>
+                {participant.active ? 'Ativo' : 'Inativo'}
+              </span>
+            </div>
           </div>
+          {participant.fantasy_name && (
+            <p className="text-muted small mb-2">"{participant.fantasy_name}"</p>
+          )}
         </div>
 
-        <hr className="border-warning" />
-
         <div className="mb-3">
-          <p className="text-light small mb-2">
+          <p className="text-muted small mb-2">
             <strong>Nascimento:</strong> {participant.birth_date ? new Date(participant.birth_date).toLocaleDateString('pt-BR') : 'N/A'}
           </p>
         </div>
 
-        <h6 className="text-warning mt-3 mb-2">Avaliações</h6>
+        <h6 className="text-primary mt-3 mb-2">Avaliações</h6>
         <div className="mb-3">
           <div className="d-flex justify-content-between align-items-center mb-2">
-            <small className="text-light">Ofensivo</small>
+            <small className="text-muted">Ofensivo</small>
             <StarRating rating={participant.offensive_rating} />
           </div>
           <div className="d-flex justify-content-between align-items-center mb-2">
-            <small className="text-light">Defensivo</small>
+            <small className="text-muted">Defensivo</small>
             <StarRating rating={participant.defensive_rating} />
           </div>
           <div className="d-flex justify-content-between align-items-center">
-            <small className="text-light">Velocidade</small>
+            <small className="text-muted">Velocidade</small>
             <StarRating rating={participant.speed_rating} />
           </div>
         </div>
 
-        <hr className="border-warning" />
+        <hr />
 
-        <h6 className="text-warning mt-3 mb-2">Estatísticas</h6>
+        <h6 className="text-primary mt-3 mb-2">Estatísticas</h6>
         <div className="row text-center small">
           <div className="col-6 mb-2">
             <p className="text-light mb-0">{participant.goals}</p>

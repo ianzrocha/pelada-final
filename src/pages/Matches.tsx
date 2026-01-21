@@ -41,13 +41,14 @@ function Matches() {
 
   return (
     <div className="container py-5">
-      <div className="row mb-4">
+      <div className="row mb-4 page-hero">
         <div className="col-lg-8">
-          <h1 className="text-warning mb-3">⚽ Partidas</h1>
+          <h1 className="text-primary mb-3">⚽ Partidas</h1>
+          <p className="text-muted">Gerencie suas partidas e acompanhe resultados</p>
         </div>
         <div className="col-lg-4 text-end">
           <button
-            className="btn btn-warning fw-bold"
+            className="btn btn-primary fw-bold"
             onClick={() => setShowForm(!showForm)}
           >
             {showForm ? '✕ Cancelar' : '➕ Nova Partida'}
@@ -72,16 +73,16 @@ function Matches() {
       ) : matches.length === 0 ? (
         <div className="row">
           <div className="col-lg-8 mx-auto">
-            <div className="card bg-dark border-warning text-center py-5">
+            <div className="card bg-dark border-primary text-center py-5">
               <h4 className="text-light">Nenhuma partida encontrada</h4>
               <p className="text-light mb-3">Clique em "Nova Partida" para começar</p>
             </div>
           </div>
         </div>
       ) : (
-        <div className="row g-4">
+        <div className="modern-grid">
           {matches.map(m => (
-            <div key={m.id} className="col-lg-8 mx-auto mb-4">
+            <div key={m.id}>
               <MatchCard
                 match={m}
                 onRemove={handleRemoveMatch}
@@ -90,6 +91,8 @@ function Matches() {
           ))}
         </div>
       )}
+
+      <button className="fab-add" title="Nova Partida" onClick={() => setShowForm(true)}>+</button>
 
       {selectedMatch && (
         <MatchDetail
