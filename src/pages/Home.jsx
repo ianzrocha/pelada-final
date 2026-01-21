@@ -26,71 +26,197 @@ export default function Home({onNavigate}){
   }, [])
 
   return (
-    <div>
-      <div className="hero mb-4">
-        <h1 className="text-brand">Rhema Society BETA</h1>
-        <p className="muted">Organize participantes, partidas e a operação de peladas.</p>
+    <div style={{maxWidth: '1400px', margin: '0 auto'}}>
+      {/* Hero Section */}
+      <div style={{marginBottom: '3rem', paddingBottom: '2rem', borderBottom: '1px solid #222'}}>
+        <h1 className="text-warning" style={{fontSize: '3rem', fontWeight: '700', letterSpacing: '-1px', marginBottom: '0.5rem'}}>⚽ Rhema Society</h1>
+        <p className="text-muted" style={{fontSize: '1.1rem', marginBottom: 0}}>Organize participantes, partidas e a operação de peladas</p>
       </div>
 
-      <div style={{maxWidth: '1100px', margin: '0 auto', paddingLeft: '16px', paddingRight: '16px'}}>
-        <div className="d-flex flex-wrap" style={{gap:16}}>
-          <div style={{flex:'1 1 320px', minWidth:'300px'}}>
-            <div className="card p-3 card-bordered" style={{height:'100%'}}>
-              <h6 className="muted">Participantes</h6>
+      {/* Stats Cards */}
+      <div className="row g-4 mb-4">
+        <div className="col-12 col-md-6">
+          <div 
+            style={{
+              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              border: '1px solid #333',
+              borderRadius: '12px',
+              padding: '2rem',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            }}
+          >
+            <div>
+              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}>👥 Participantes</h6>
               <div className="d-flex align-items-baseline justify-content-between">
                 <div>
-                  <div className="h2 text-brand">{participantsCount}</div>
-                  <div className="small muted">Cadastrados</div>
-                </div>
-                <div>
-                  <button className="btn btn-sm btn-ghost" onClick={()=>onNavigate('participants')}>Gerenciar</button>
+                  <div style={{fontSize: '2.5rem', fontWeight: '700', color: '#ffc107'}}>{participantsCount}</div>
+                  <p className="text-muted small mb-0">Cadastrados</p>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div style={{flex:'1 1 320px', minWidth:'300px'}}>
-            <div className="card p-3 card-bordered" style={{height:'100%'}}>
-              <h6 className="muted">Partidas</h6>
-              <div className="d-flex align-items-baseline justify-content-between">
-                <div>
-                  <div className="h2 text-brand">{matchesCount}</div>
-                  <div className="small muted">Criadas</div>
-                </div>
-                <div>
-                  <button className="btn btn-sm btn-ghost" onClick={()=>onNavigate('matches')}>Ver Partidas</button>
-                </div>
-              </div>
-            </div>
+            <button 
+              className="btn btn-warning mt-3" 
+              onClick={()=>onNavigate('participants')}
+              style={{
+                fontWeight: '600',
+                padding: '0.6rem 1.2rem',
+                borderRadius: '8px',
+                fontSize: '0.9rem'
+              }}
+            >
+              Gerenciar
+            </button>
           </div>
         </div>
 
-        <div className="d-flex flex-wrap mt-4" style={{gap:16, marginBottom: '24px'}}>
-          <div style={{flex:'1 1 calc(50% - 8px)', minWidth:'280px'}}>
-            <div className="card p-3 card-bordered" style={{height:'100%'}}>
-              <h6 className="muted">Próxima partida</h6>
-              {nextMatch ? (
+        <div className="col-12 col-md-6">
+          <div 
+            style={{
+              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              border: '1px solid #333',
+              borderRadius: '12px',
+              padding: '2rem',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            }}
+          >
+            <div>
+              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}>🎮 Partidas</h6>
+              <div className="d-flex align-items-baseline justify-content-between">
                 <div>
-                  <div className="h5 text-brand">{nextMatch.title}</div>
-                  <div className="small muted">{nextMatch.date || 'Data não definida'}</div>
-                  <div className="mt-2"><button className="btn btn-sm btn-primary" onClick={()=>onNavigate('matches')}>Abrir</button></div>
+                  <div style={{fontSize: '2.5rem', fontWeight: '700', color: '#ffc107'}}>{matchesCount}</div>
+                  <p className="text-muted small mb-0">Criadas</p>
                 </div>
-              ) : (
-                <div className="muted">Nenhuma partida agendada.</div>
-              )}
+              </div>
+            </div>
+            <button 
+              className="btn btn-warning mt-3" 
+              onClick={()=>onNavigate('matches')}
+              style={{
+                fontWeight: '600',
+                padding: '0.6rem 1.2rem',
+                borderRadius: '8px',
+                fontSize: '0.9rem'
+              }}
+            >
+              Ver Partidas
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Next Match and Shortcuts */}
+      <div className="row g-4">
+        <div className="col-12 col-lg-6">
+          <div 
+            style={{
+              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              border: '1px solid #333',
+              borderRadius: '12px',
+              padding: '2rem',
+              height: '100%'
+            }}
+          >
+            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}>📅 Próxima Partida</h6>
+            {nextMatch ? (
+              <div>
+                <div style={{fontSize: '1.5rem', fontWeight: '700', color: '#ffc107', marginBottom: '0.5rem'}}>{nextMatch.title}</div>
+                <p className="text-muted mb-4" style={{fontSize: '0.95rem'}}>
+                  {nextMatch.date ? new Date(nextMatch.date).toLocaleDateString('pt-BR') : 'Data não definida'}
+                </p>
+                <button 
+                  className="btn btn-warning"
+                  onClick={()=>onNavigate('matches')}
+                  style={{
+                    fontWeight: '600',
+                    padding: '0.6rem 1.2rem',
+                    borderRadius: '8px',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Abrir Partida
+                </button>
+              </div>
+            ) : (
+              <div className="text-muted text-center py-5">
+                <p style={{fontSize: '3rem', marginBottom: '1rem'}}>📭</p>
+                <p>Nenhuma partida agendada</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="col-12 col-lg-6">
+          <div 
+            style={{
+              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              border: '1px solid #333',
+              borderRadius: '12px',
+              padding: '2rem',
+              height: '100%'
+            }}
+          >
+            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}>⚡ Atalhos Rápidos</h6>
+            <div className="d-flex flex-column gap-2">
+              <button 
+                className="btn btn-outline-light"
+                onClick={()=>onNavigate('participants')}
+                style={{
+                  padding: '0.75rem 1.2rem',
+                  borderRadius: '8px',
+                  fontSize: '0.95rem',
+                  fontWeight: '600',
+                  border: '1px solid #555',
+                  justifyContent: 'flex-start'
+                }}
+              >
+                + Adicionar Participante
+              </button>
+              <button 
+                className="btn btn-outline-light"
+                onClick={()=>onNavigate({name:'matches', openCreate:true})}
+                style={{
+                  padding: '0.75rem 1.2rem',
+                  borderRadius: '8px',
+                  fontSize: '0.95rem',
+                  fontWeight: '600',
+                  border: '1px solid #555',
+                  justifyContent: 'flex-start'
+                }}
+              >
+                + Criar Partida
+              </button>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div style={{flex:'1 1 calc(50% - 8px)', minWidth:'280px'}}>
-            <div className="card p-3 card-bordered" style={{height:'100%'}}>
-              <h6 className="muted">Atalhos</h6>
-              <div className="d-flex gap-2 flex-wrap">
-                <button className="btn btn-ghost" onClick={()=>onNavigate('participants')}>Adicionar Participante</button>
-                <button className="btn btn-ghost" onClick={()=>onNavigate({name:'matches', openCreate:true})}>Criar Partida</button>
-              </div>
-              <div className="mt-3">
-                {/* chart removed as requested */}
-              </div>
+      {/* Stats Row */}
+      <div className="row g-4 mt-2 mb-4">
+        <div className="col-12">
+          <div 
+            style={{
+              background: 'linear-gradient(135deg, #0a0a0a 0%, #151515 100%)',
+              border: '1px solid #333',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '2rem'
+            }}
+          >
+            <div style={{textAlign: 'center', borderRight: '1px solid #333', paddingRight: '1rem'}}>
+              <div style={{fontSize: '0.9rem', color: '#999', marginBottom: '0.5rem'}}>Resultados Registrados</div>
+              <div style={{fontSize: '2rem', fontWeight: '700', color: '#ffc107'}}>{recentResultsCount}</div>
+            </div>
+            <div style={{textAlign: 'center'}}>
+              <div style={{fontSize: '0.9rem', color: '#999', marginBottom: '0.5rem'}}>Status</div>
+              <div style={{fontSize: '1rem', color: '#4ade80'}}>✓ Sistema Operacional</div>
             </div>
           </div>
         </div>

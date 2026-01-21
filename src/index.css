@@ -7,8 +7,8 @@
   --radius: 12px;
   --brand-yellow: #f6c84c;
   --brand-ink: #0b0b0b;
-  --bg: #0f1720; /* deep slate */
-  --surface: #0f1a23;
+  --bg: #0a0e1a;
+  --surface: #121820;
   --muted: #9aa0a6;
   --accent: #646cff;
   --glass: rgba(255, 255, 255, 0.03);
@@ -16,7 +16,8 @@
   --card-shadow: 0 6px 24px rgba(2, 6, 23, 0.6);
   color-scheme: dark;
   color: #e9eef2;
-  background-color: var(--bg);
+  background: linear-gradient(135deg, #0a0e1a 0%, #141b28 50%, #0f1620 100%);
+  background-attachment: fixed;
   font-family: var(--font-sans);
   line-height: 1.45;
   font-weight: 400;
@@ -56,11 +57,11 @@ body {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #666;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #888;
 }
 
 html,
@@ -249,20 +250,31 @@ nav.navbar {
   display: flex;
   gap: 1rem;
   align-items: center;
-  padding: 0.9rem;
-  border-radius: 10px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent);
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border: 1px solid rgba(246, 200, 76, 0.12);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+.participant-card:hover,
+.match-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(246, 200, 76, 0.25);
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
 }
 .participant-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 10px;
-  background: var(--glass);
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(246, 200, 76, 0.2) 0%, rgba(246, 200, 76, 0.1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   color: var(--brand-yellow);
+  border: 1px solid rgba(246, 200, 76, 0.2);
+  flex-shrink: 0;
 }
 .meta {
   color: var(--muted);
