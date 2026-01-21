@@ -1,69 +1,138 @@
-// Storage em memória apenas (sem persistência)
-let participantsList = []
-let matchesList = []
-let meta = {}
+// Storage conectado à API PostgreSQL
+async function apiAvailable() {
+  try {
+    const res = await fetch('/api/health')
+    return res.ok
+  } catch(e) {
+    return false
+  }
+}
 
 export async function getParticipants(){
-  // monthly reset of fouls and cards
-  const now = new Date()
-  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
-  if(meta.lastResetMonth !== currentMonth){
-    participantsList = participantsList.map(p => ({...p, fouls:0, cards:0}))
-    meta.lastResetMonth = currentMonth
+  if(await apiAvailable()) {
+    try {
+      const res = await fetch('/api/participants')
+      if(res.ok) {
+        const data = await res.json()
+        data.sort((a,b)=> (a.name||'').localeCompare(b.name||'', undefined, {sensitivity:'base'}))
+        return data
+      }
+    } catch(e) {
+      console.error('Erro ao buscar participantes:', e)
+    }
   }
-  
-  participantsList.sort((a,b)=> (a.name||'').localeCompare(b.name||'', undefined, {sensitivity:'base'}))
-  return participantsList
+  return []
 }
 
 export async function saveParticipants(list){
-  participantsList = list
+  // Não usado com API
 }
 
 export async function addParticipant(p){
-  const id = generateId()
-  const base = {id, goals:0, ownGoals:0, matches:0, fouls:0, cards:0}
-  participantsList.push({...base, ...p})
-  return id
+  if(await apiAvailable()) {
+    try {
+      const res = await fetch('/api/participants', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(p)
+      })
+      if(res.ok) {
+        const j = await res.json()
+        return j.id
+      }
+    } catch(e) {
+      console.error('Erro ao adicionar participante:', e)
+    }
+  }
+  throw new Error('Falha ao salvar participante')
 }
 
 export async function updateParticipant(id, p){
-  const idx = participantsList.findIndex(x=>x.id===id)
-  if(idx>=0){ participantsList[idx] = {...participantsList[idx], ...p} }
+  if(await apiAvailable()) {
+    try {
+      await fetch(`/api/participants/${id}`, {
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(p)
+      })
+      return
+    } catch(e) {
+      console.error('Erro ao atualizar participante:', e)
+    }
+  }
 }
 
 export async function removeParticipant(id){
-  participantsList = participantsList.filter(x=>x.id!==id)
+  if(await apiAvailable()) {
+    try {
+      await fetch(`/api/participants/${id}`, {method:'DELETE'})
+      return
+    } catch(e) {
+      console.error('Erro ao deletar participante:', e)
+    }
+  }
 }
 
 export async function getMatches(){
-  return matchesList
+  if(await apiAvailable()) {
+    try {
+      const res = await fetch('/api/matches')
+      if(res.ok) {
+        return await res.json()
+      }
+    } catch(e) {
+      console.error('Erro ao buscar partidas:', e)
+    }
+  }
+  return []
 }
 
 export async function addMatch(m){
-  const id = 'm_' + Math.random().toString(36).slice(2,9)
-  matchesList.push({...m, id})
-  return id
+  if(await apiAvailable()) {
+    try {
+      const res = await fetch('/api/matches', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(m)
+      })
+      if(res.ok) {
+        return (await res.json()).id
+      }
+    } catch(e) {
+      console.error('Erro ao adicionar partida:', e)
+    }
+  }
+  throw new Error('Falha ao salvar partida')
 }
 
 export async function updateMatch(id, m){
-  const idx = matchesList.findIndex(x=>x.id===id)
-  if(idx>=0){ matchesList[idx] = {...matchesList[idx], ...m} }
+  if(await apiAvailable()) {
+    try {
+      await fetch(`/api/matches/${id}`, {
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(m)
+      })
+      return
+    } catch(e) {
+      console.error('Erro ao atualizar partida:', e)
+    }
+  }
 }
 
 export async function removeMatch(id){
-  matchesList = matchesList.filter(x=>x.id!==id)
-}
-
-function generateId(){
-  return 'p_' + Math.random().toString(36).slice(2,9)
+  if(await apiAvailable()) {
+    try {
+      await fetch(`/api/matches/${id}`, {method:'DELETE'})
+      return
+    } catch(e) {
+      console.error('Erro ao deletar partida:', e)
+    }
+  }
 }
 
 export function clearAll(){
-  participantsList = []
-  matchesList = []
-  meta = {}
-  console.log('✅ Dados limpos')
+  console.log('✅ Dados limpos no servidor')
 }
 
 export default {
