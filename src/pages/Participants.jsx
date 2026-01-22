@@ -68,7 +68,7 @@ export default function Participants(){
               border: '1px solid #555'
             }}
           >
-            🔄 Atualizar 
+             Atualizar 
           </button>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function Participants(){
           <form 
             onSubmit={handleSubmit} 
             style={{
-              background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(20, 27, 40, 0.8) 100%)',
+              background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.6) 0%, rgba(26, 26, 26, 0.8) 100%)',
               border: '1px solid rgba(246, 200, 76, 0.12)',
               borderRadius: '12px',
               padding: '2rem',
@@ -299,7 +299,7 @@ export default function Participants(){
             textAlign: 'center',
             padding: '3rem',
             borderRadius: '12px',
-            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(20, 27, 40, 0.8) 100%)',
+            background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.6) 0%, rgba(26, 26, 26, 0.8) 100%)',
             border: '1px solid rgba(246, 200, 76, 0.12)'
           }}
         >
