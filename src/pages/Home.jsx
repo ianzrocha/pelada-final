@@ -38,7 +38,7 @@ export default function Home({onNavigate}){
         <div className="col-12 col-md-6">
           <div 
             style={{
-              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              background: 'linear-gradient(344  deg, #0f0f0f 0%, #1a1a1a 100%)',
               border: '1px solid #333',
               borderRadius: '12px',
               padding: '2rem',
@@ -49,7 +49,7 @@ export default function Home({onNavigate}){
             }}
           >
             <div>
-              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-person-circle"></i> Participantes</h6>
+              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-person-circle" style={{color: 'white', fontSize: "30px", paddingRight: '5px'}}></i> Participantes</h6>
               <div className="d-flex align-items-baseline justify-content-between">
                 <div>
                   <div style={{fontSize: '2.5rem', fontWeight: '700', color: '#ffc107'}}>{participantsCount}</div>
@@ -75,7 +75,7 @@ export default function Home({onNavigate}){
         <div className="col-12 col-md-6">
           <div 
             style={{
-              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              background: 'linear-gradient(344deg, #0f0f0f 0%, #1a1a1a 100%)',
               border: '1px solid #333',
               borderRadius: '12px',
               padding: '2rem',
@@ -86,7 +86,7 @@ export default function Home({onNavigate}){
             }}
           >
             <div>
-              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-controller"></i> Partidas</h6>
+              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-controller" style={{color: 'white', fontSize: "30px", paddingRight: '5px'}}></i> Partidas</h6>
               <div className="d-flex align-items-baseline justify-content-between">
                 <div>
                   <div style={{fontSize: '2.5rem', fontWeight: '700', color: '#ffc107'}}>{matchesCount}</div>
@@ -115,14 +115,14 @@ export default function Home({onNavigate}){
         <div className="col-12 col-lg-6">
           <div 
             style={{
-              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              background: 'linear-gradient(344deg, #0f0f0f 0%, #1a1a1a 100%)',
               border: '1px solid #333',
               borderRadius: '12px',
               padding: '2rem',
               height: '100%'
             }}
           >
-            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-calendar-date"></i> Próxima Partida</h6>
+            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-calendar-date" style={{color: 'white', fontSize: "30px", paddingRight: '5px'}}></i> Próxima Partida</h6>
             {nextMatch ? (
               <div>
                 <div style={{fontSize: '1.5rem', fontWeight: '700', color: '#ffc107', marginBottom: '0.5rem'}}>{nextMatch.title}</div>
@@ -154,14 +154,14 @@ export default function Home({onNavigate}){
         <div className="col-12 col-lg-6">
           <div 
             style={{
-              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+              background: 'linear-gradient(344deg, #0f0f0f 0%, #1a1a1a 100%)',
               border: '1px solid #333',
               borderRadius: '12px',
               padding: '2rem',
               height: '100%'
             }}
           >
-            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-caret-right"></i> Atalhos Rápidos</h6>
+            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-caret-right" style={{color: 'white', fontSize: "30px"}}></i> Atalhos Rápidos</h6>
             <div className="d-flex flex-column gap-2">
               <button 
                 className="btn btn-outline-light"
@@ -210,10 +210,10 @@ export default function Home({onNavigate}){
               gap: '2rem'
             }}
           >
-            <div style={{textAlign: 'center', borderRight: '1px solid #333', paddingRight: '1rem'}}>
+            {/* <div style={{textAlign: 'center', borderRight: '1px solid #333', paddingRight: '1rem'}}>
               <div style={{fontSize: '0.9rem', color: '#999', marginBottom: '0.5rem'}}>Resultados Registrados</div>
               <div style={{fontSize: '2rem', fontWeight: '700', color: '#ffc107'}}>{recentResultsCount}</div>
-            </div>
+            </div> //ABA RESULTADOS REGISTRADOS REMOVIDA*/} 
             <div style={{textAlign: 'center'}}>
               <div style={{fontSize: '0.9rem', color: '#999', marginBottom: '0.5rem'}}>Status</div>
               <div style={{fontSize: '1rem', color: '#4ade80'}}>✓ Sistema Operacional</div>

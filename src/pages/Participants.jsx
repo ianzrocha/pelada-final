@@ -68,7 +68,7 @@ export default function Participants(){
               border: '1px solid #555'
             }}
           >
-             Atualizar 
+            <i class="bi bi-arrow-repeat"></i> Atualizar 
           </button>
         </div>
       </div>
