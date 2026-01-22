@@ -303,7 +303,7 @@ export default function Participants(){
             border: '1px solid rgba(246, 200, 76, 0.12)'
           }}
         >
-          <div style={{fontSize: '3rem', marginBottom: '1rem'}}>⚽</div>
+          <div style={{fontSize: '3rem', marginBottom: '1rem'}}><i class="bi bi-person-add"></i></div>
           <p className="text-muted mb-3">Nenhum participante cadastrado</p>
           <button 
             className="btn btn-warning" 

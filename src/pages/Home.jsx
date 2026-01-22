@@ -29,7 +29,7 @@ export default function Home({onNavigate}){
     <div style={{maxWidth: '1400px', margin: '0 auto'}}>
       {/* Hero Section */}
       <div style={{marginBottom: '3rem', paddingBottom: '2rem', borderBottom: '1px solid #222'}}>
-        <h1 className="text-warning" style={{fontSize: '3rem', fontWeight: '700', letterSpacing: '-1px', marginBottom: '0.5rem'}}>⚽ Rhema Society</h1>
+        <h1 className="text-warning" style={{fontSize: '3rem', fontWeight: '700', letterSpacing: '-1px', marginBottom: '0.5rem'}}>Rhema Society</h1>
         <p className="text-muted" style={{fontSize: '1.1rem', marginBottom: 0}}>Organize participantes, partidas e a operação de peladas</p>
       </div>
 
@@ -49,7 +49,7 @@ export default function Home({onNavigate}){
             }}
           >
             <div>
-              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}>👥 Participantes</h6>
+              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-person-circle"></i> Participantes</h6>
               <div className="d-flex align-items-baseline justify-content-between">
                 <div>
                   <div style={{fontSize: '2.5rem', fontWeight: '700', color: '#ffc107'}}>{participantsCount}</div>
@@ -86,7 +86,7 @@ export default function Home({onNavigate}){
             }}
           >
             <div>
-              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}>🎮 Partidas</h6>
+              <h6 className="text-muted mb-3" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-controller"></i> Partidas</h6>
               <div className="d-flex align-items-baseline justify-content-between">
                 <div>
                   <div style={{fontSize: '2.5rem', fontWeight: '700', color: '#ffc107'}}>{matchesCount}</div>
@@ -122,7 +122,7 @@ export default function Home({onNavigate}){
               height: '100%'
             }}
           >
-            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}>📅 Próxima Partida</h6>
+            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-calendar-date"></i> Próxima Partida</h6>
             {nextMatch ? (
               <div>
                 <div style={{fontSize: '1.5rem', fontWeight: '700', color: '#ffc107', marginBottom: '0.5rem'}}>{nextMatch.title}</div>
@@ -144,7 +144,7 @@ export default function Home({onNavigate}){
               </div>
             ) : (
               <div className="text-muted text-center py-5">
-                <p style={{fontSize: '3rem', marginBottom: '1rem'}}>📭</p>
+                <p style={{fontSize: '3rem', marginBottom: '1rem'}}><i class="bi bi-calendar2-week"></i></p>
                 <p>Nenhuma partida agendada</p>
               </div>
             )}
@@ -161,7 +161,7 @@ export default function Home({onNavigate}){
               height: '100%'
             }}
           >
-            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}>⚡ Atalhos Rápidos</h6>
+            <h6 className="text-muted mb-4" style={{fontSize: '0.9rem', fontWeight: '600'}}><i class="bi bi-caret-right"></i> Atalhos Rápidos</h6>
             <div className="d-flex flex-column gap-2">
               <button 
                 className="btn btn-outline-light"

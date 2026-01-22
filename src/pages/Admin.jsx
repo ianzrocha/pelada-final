@@ -75,7 +75,7 @@ export default function Admin(){
               padding: '2rem'
             }}
           >
-            <h3 className="text-warning mb-4" style={{fontSize: '1.1rem', fontWeight: '600'}}>📊 Resumo de Pagamentos</h3>
+            <h3 className="text-warning mb-4" style={{fontSize: '1.1rem', fontWeight: '600'}}><i class="bi bi-layers"></i> Resumo de Pagamentos</h3>
             <div style={{height: '220px', marginBottom: '1.5rem'}}>
               <Pie data={data} />
             </div>
