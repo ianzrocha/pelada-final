@@ -99,7 +99,7 @@ export default function OrganizePlayersSection({
           onClick={onSave}
           disabled={organization.length === 0}
         >
-          💾 Salvar Organização
+          💾 Salvar Participantes do Dia
         </button>
       </div>
     </div>

@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { getParticipants } from "../services/storage";
 import OrganizePlayersSection from "./OrganizePlayersSection";
-import TeamsSection from "./TeamsSection";
-import MatchResultsSection from "./MatchResultsSection";
-
-function avgSkill(p) {
-  return ((p.offense || 0) + (p.defense || 0) + (p.speed || 0)) / 3;
-}
+import TeamManager from "./TeamManager";
+import MatchStatsForm from "./MatchStatsForm";
 
 export default function MatchDetail({ match, onSave }) {
   const [org, setOrg] = useState(match.organization || []);
   const [allPlayers, setAllPlayers] = useState([]);
-  const [teams, setTeams] = useState({ a: [], b: [], avgA: 0, avgB: 0 });
-  const [results, setResults] = useState(match.results || []);
+  const [teams, setTeams] = useState([]);
+  const [games, setGames] = useState(match.games || []);
+  const [currentGameNum, setCurrentGameNum] = useState(1);
+  const [showStatsForm, setShowStatsForm] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -23,6 +21,7 @@ export default function MatchDetail({ match, onSave }) {
   useEffect(() => {
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setOrg(match.organization || []);
+    setGames(match.games || []);
   }, [match]);
 
   function moveUp(i) {
@@ -50,69 +49,34 @@ export default function MatchDetail({ match, onSave }) {
     setOrg((s) => [...s, id]);
   }
 
-  function buildTeams() {
-    const roster = org
-      .map((id) => allPlayers.find((p) => p.id === id))
-      .filter(Boolean);
-    // separate juiz (judge) out and goleiro count
-    const judges = roster.filter((p) => p.position === "juiz");
-    const keepers = roster.filter((p) => p.position === "goleiro");
-    const others = roster.filter(
-      (p) => p.position !== "juiz" && p.position !== "goleiro",
-    );
-
-    // compute skill
-    const players = others.map((p) => ({ ...p, skill: avgSkill(p) }));
-
-    // greedy balance by skill (descending)
-    players.sort((a, b) => b.skill - a.skill);
-    const teamA = [];
-    const teamB = [];
-    const maxPerTeam = 6;
-
-    const avg = (arr) =>
-      arr.length ? arr.reduce((s, x) => s + avgSkill(x), 0) / arr.length : 0;
-
-    players.forEach((pl) => {
-      const aAvg = avg(teamA);
-      const bAvg = avg(teamB);
-      // choose the team with fewer players or lower avg, respect max
-      if (
-        (teamA.length < teamB.length && teamA.length < maxPerTeam) ||
-        (teamA.length < maxPerTeam && aAvg <= bAvg)
-      ) {
-        teamA.push(pl);
-      } else if (teamB.length < maxPerTeam) {
-        teamB.push(pl);
-      } else if (teamA.length < maxPerTeam) {
-        teamA.push(pl);
-      } else {
-        // overflow: place in A
-        teamA.push(pl);
-      }
-    });
-
-    // assign goalkeepers by arrival order to teams if present, do not count them in balance
-    if (keepers.length) {
-      if (keepers[0]) teamA.unshift(keepers[0]);
-      if (keepers[1]) teamB.unshift(keepers[1]);
-      // extra keepers appended to A
-      for (let i = 2; i < keepers.length; i++) teamA.push(keepers[i]);
-    }
-
-    const avgA = avg(teamA);
-    const avgB = avg(teamB);
-
-    setTeams({ a: teamA, b: teamB, avgA, avgB, judges });
-  }
-
-  function save() {
-    const payload = { ...match, organization: org, results };
+  function saveDayParticipants() {
+    const payload = { ...match, organization: org };
     onSave(payload);
   }
 
-  function addResult(newResult) {
-    setResults((r) => [...r, newResult]);
+  function handleTeamsSaved(newTeams) {
+    setTeams(newTeams);
+  }
+
+  function handleGameComplete(gameData) {
+    const newGames = [...games, gameData];
+    setGames(newGames);
+    setCurrentGameNum(currentGameNum + 1);
+    setShowStatsForm(false);
+  }
+
+  function handleCancelGame() {
+    setShowStatsForm(false);
+  }
+
+  function saveAllResults() {
+    const payload = {
+      ...match,
+      organization: org,
+      teams: teams,
+      games: games,
+    };
+    onSave(payload);
   }
 
   return (
@@ -124,19 +88,73 @@ export default function MatchDetail({ match, onSave }) {
         onMoveUp={moveUp}
         onMoveDown={moveDown}
         onRemove={removeAt}
-        onSave={save}
+        onSave={saveDayParticipants}
       />
 
-      <TeamsSection teams={teams} onBuildTeams={buildTeams} />
+      {org.length > 0 && (
+        <TeamManager
+          allPlayers={allPlayers}
+          organization={org}
+          onSave={handleTeamsSaved}
+          onBuildTeams={() => {}}
+        />
+      )}
 
-      <MatchResultsSection
-        match={match}
-        results={results}
-        teams={teams}
-        allPlayers={allPlayers}
-        onAddResult={addResult}
-        onSave={save}
-      />
+      {teams.length > 0 && (
+        <div className="match-games-section card">
+          {!showStatsForm ? (
+            <div className="games-summary">
+              <div className="summary-header">
+                <h3 className="section-title">🎮 Resultado das Partidas</h3>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setShowStatsForm(true)}
+                >
+                  ➕ Jogo #{currentGameNum}
+                </button>
+              </div>
+
+              {games.length > 0 && (
+                <div className="games-history">
+                  <h4>Jogos Concluídos:</h4>
+                  {games.map((game, idx) => (
+                    <div key={idx} className="game-summary-item">
+                      <div className="game-num">Jogo #{game.gameNum}</div>
+                      <div className="game-stats">
+                        {game.stats
+                          .filter((s) => s.goals > 0 || s.ownGoals > 0)
+                          .map((s) => (
+                            <span key={s.playerId} className="scorer-badge">
+                              {s.playerName}: {s.goals}⚽
+                              {s.ownGoals > 0 && ` +${s.ownGoals}🔴`}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="save-results-btn">
+                <button
+                  className="btn btn-success"
+                  onClick={saveAllResults}
+                  disabled={games.length === 0}
+                >
+                  💾 Salvar Todos os Jogos
+                </button>
+              </div>
+            </div>
+          ) : (
+            <MatchStatsForm
+              gameNum={currentGameNum}
+              teams={teams}
+              onGameComplete={handleGameComplete}
+              onCancel={handleCancelGame}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
