@@ -274,19 +274,32 @@ main {
 
 .match-detail-container {
   display: grid;
-  gap: 2rem;
+  gap: 1.5rem;
   width: 100%;
   max-width: 1400px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
 }
 
-/* Shared Section Styles */
+.organize-section {
+  grid-area: auto;
+}
+
+.teams-section {
+  grid-area: auto;
+}
+
+.results-section {
+  grid-area: auto;
+}
+
 .organize-section,
 .teams-section,
 .results-section {
   background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
 }
@@ -299,7 +312,7 @@ main {
 }
 
 .section-title {
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #ffc107;
   margin: 0 0 0.25rem 0;
@@ -318,8 +331,8 @@ main {
    ============================================ */
 
 .organize-header {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
@@ -348,8 +361,7 @@ main {
 }
 
 .players-list {
-  margin-bottom: 1.5rem;
-  min-height: 150px;
+  margin-bottom: 1rem;
 }
 
 .empty-state {
@@ -773,7 +785,7 @@ main {
 }
 
 .score-value {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #ffc107;
   line-height: 1;
@@ -821,9 +833,9 @@ main {
 .result-creator {
   background: linear-gradient(180deg, #0a0a08 0%, #1a1a14 100%);
   border: 1px solid rgba(255, 193, 7, 0.15);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .creator-header {
@@ -847,9 +859,9 @@ main {
 
 .scorers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .scorers-column {
@@ -1114,6 +1126,16 @@ main {
 }
 
 /* Responsive Design */
+@media (max-width: 1440px) {
+  .match-detail-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "organize"
+      "teams"
+      "results";
+  }
+}
+
 @media (max-width: 768px) {
   .match-detail-container {
     gap: 1.5rem;
