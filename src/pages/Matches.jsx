@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {getMatches, addMatch, updateMatch, getParticipants} from '../services/storage'
 import MatchCard from '../components/MatchCard'
 import MatchDetail from '../components/MatchDetail'
+import DatePicker from '../components/DatePicker'
 
 export default function Matches({openCreate=false}){
   const [list, setList] = useState([])
@@ -14,7 +15,10 @@ export default function Matches({openCreate=false}){
   async function handleCreate(e){
     e.preventDefault()
     const id = await addMatch(form)
-    setList(await getMatches())
+    const matches = await getMatches()
+    setList(matches)
+    const created = matches.find(x=> x.id === id) || matches[0] || null
+    setCurrent(created)
     setShowForm(false)
     setForm({title:'Rhema Society', description:'', date:'', games:1, organization:[]})
   }
@@ -90,20 +94,7 @@ export default function Matches({openCreate=false}){
               </div>
               <div className="col-12 col-md-6">
                 <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Data</label>
-                <input 
-                  type="date" 
-                  className="form-control" 
-                  value={form.date} 
-                  onChange={e=>setForm(s=>({...s, date:e.target.value}))}
-                  style={{
-                    background: '#0a0a0a',
-                    border: '1px solid #444',
-                    borderRadius: '8px',
-                    padding: '0.75rem 1rem',
-                    color: '#fff',
-                    fontSize: '0.95rem'
-                  }}
-                />
+                <DatePicker value={form.date} onChange={(d)=>setForm(s=>({...s, date: d}))} />
               </div>
               <div className="col-12">
                 <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Descrição</label>

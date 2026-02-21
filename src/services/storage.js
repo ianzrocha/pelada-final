@@ -21,7 +21,16 @@ export async function getParticipants(){
       console.error('Erro ao buscar participantes:', e)
     }
   }
-  return []
+  // fallback to localStorage
+  try{
+    const raw = localStorage.getItem('pelada_participants')
+    const data = raw ? JSON.parse(raw) : []
+    data.sort((a,b)=> (a.name||'').localeCompare(b.name||'', undefined, {sensitivity:'base'}))
+    return data
+  } catch(e){
+    console.error('Erro ao ler participantes do localStorage', e)
+    return []
+  }
 }
 
 export async function saveParticipants(list){
@@ -44,7 +53,19 @@ export async function addParticipant(p){
       console.error('Erro ao adicionar participante:', e)
     }
   }
-  throw new Error('Falha ao salvar participante')
+  // fallback to localStorage
+  try{
+    const raw = localStorage.getItem('pelada_participants')
+    const data = raw ? JSON.parse(raw) : []
+    const id = Date.now().toString()
+    const item = {...p, id}
+    data.push(item)
+    localStorage.setItem('pelada_participants', JSON.stringify(data))
+    return id
+  } catch(e){
+    console.error('Erro ao salvar participante no localStorage', e)
+    throw new Error('Falha ao salvar participante')
+  }
 }
 
 export async function updateParticipant(id, p){
@@ -60,6 +81,14 @@ export async function updateParticipant(id, p){
       console.error('Erro ao atualizar participante:', e)
     }
   }
+  // fallback localStorage
+  try{
+    const raw = localStorage.getItem('pelada_participants')
+    const data = raw ? JSON.parse(raw) : []
+    const idx = data.findIndex(x=> x.id === id)
+    if(idx !== -1){ data[idx] = {...p, id}; localStorage.setItem('pelada_participants', JSON.stringify(data)) }
+    return
+  } catch(e){ console.error('Erro ao atualizar participante no localStorage', e) }
 }
 
 export async function removeParticipant(id){
@@ -71,6 +100,14 @@ export async function removeParticipant(id){
       console.error('Erro ao deletar participante:', e)
     }
   }
+  // fallback localStorage
+  try{
+    const raw = localStorage.getItem('pelada_participants')
+    const data = raw ? JSON.parse(raw) : []
+    const filtered = data.filter(x=> x.id !== id)
+    localStorage.setItem('pelada_participants', JSON.stringify(filtered))
+    return
+  } catch(e){ console.error('Erro ao deletar participante no localStorage', e) }
 }
 
 export async function getMatches(){
@@ -84,7 +121,11 @@ export async function getMatches(){
       console.error('Erro ao buscar partidas:', e)
     }
   }
-  return []
+  // fallback to localStorage
+  try{
+    const raw = localStorage.getItem('pelada_matches')
+    return raw ? JSON.parse(raw) : []
+  } catch(e){ console.error('Erro ao ler partidas do localStorage', e); return [] }
 }
 
 export async function addMatch(m){
@@ -102,7 +143,16 @@ export async function addMatch(m){
       console.error('Erro ao adicionar partida:', e)
     }
   }
-  throw new Error('Falha ao salvar partida')
+  // fallback to localStorage
+  try{
+    const raw = localStorage.getItem('pelada_matches')
+    const data = raw ? JSON.parse(raw) : []
+    const id = Date.now().toString()
+    const item = {...m, id}
+    data.push(item)
+    localStorage.setItem('pelada_matches', JSON.stringify(data))
+    return id
+  } catch(e){ console.error('Erro ao salvar partida no localStorage', e); throw new Error('Falha ao salvar partida') }
 }
 
 export async function updateMatch(id, m){
@@ -118,6 +168,14 @@ export async function updateMatch(id, m){
       console.error('Erro ao atualizar partida:', e)
     }
   }
+  // fallback localStorage
+  try{
+    const raw = localStorage.getItem('pelada_matches')
+    const data = raw ? JSON.parse(raw) : []
+    const idx = data.findIndex(x=> x.id === id)
+    if(idx !== -1){ data[idx] = {...m, id}; localStorage.setItem('pelada_matches', JSON.stringify(data)) }
+    return
+  } catch(e){ console.error('Erro ao atualizar partida no localStorage', e) }
 }
 
 export async function removeMatch(id){
@@ -129,6 +187,14 @@ export async function removeMatch(id){
       console.error('Erro ao deletar partida:', e)
     }
   }
+  // fallback localStorage
+  try{
+    const raw = localStorage.getItem('pelada_matches')
+    const data = raw ? JSON.parse(raw) : []
+    const filtered = data.filter(x=> x.id !== id)
+    localStorage.setItem('pelada_matches', JSON.stringify(filtered))
+    return
+  } catch(e){ console.error('Erro ao deletar partida no localStorage', e) }
 }
 
 export function clearAll(){

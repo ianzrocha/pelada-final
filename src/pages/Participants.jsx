@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {getParticipants, addParticipant} from '../services/storage'
 import ParticipantCard from '../components/ParticipantCard'
 import StarRating from '../components/StarRating'
+import DatePicker from '../components/DatePicker'
 
 export default function Participants(){
   const [list, setList] = useState([])
@@ -128,20 +129,7 @@ export default function Participants(){
               {/* Date, Type, Position */}
               <div className="col-12 col-md-6 col-lg-3">
                 <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Data de Nascimento</label>
-                <input 
-                  type="date" 
-                  className="form-control" 
-                  value={form.birthDate} 
-                  onChange={(e)=>handleChange('birthDate', e.target.value)}
-                  style={{
-                    background: '#0a0a0a',
-                    border: '1px solid #444',
-                    borderRadius: '8px',
-                    padding: '0.75rem 1rem',
-                    color: '#fff',
-                    fontSize: '0.95rem'
-                  }}
-                />
+                <DatePicker value={form.birthDate} onChange={(d)=>handleChange('birthDate', d)} />
               </div>
               <div className="col-12 col-md-6 col-lg-3">
                 <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Tipo</label>
