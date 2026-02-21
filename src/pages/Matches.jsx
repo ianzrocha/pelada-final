@@ -1,164 +1,257 @@
-import React, {useEffect, useState} from 'react'
-import {getMatches, addMatch, updateMatch, getParticipants} from '../services/storage'
-import MatchCard from '../components/MatchCard'
-import MatchDetail from '../components/MatchDetail'
-import DatePicker from '../components/DatePicker'
+import React, { useEffect, useState } from "react";
+import { getMatches, addMatch, updateMatch } from "../services/storage";
+import MatchCard from "../components/MatchCard";
+import MatchDetail from "../components/MatchDetail";
+import DatePicker from "../components/DatePicker";
 
-export default function Matches({openCreate=false}){
-  const [list, setList] = useState([])
-  const [showForm, setShowForm] = useState(openCreate)
-  const [current, setCurrent] = useState(null)
-  const [form, setForm] = useState({title:'Rhema Society', description:'', date:'', games:1, organization:[]})
+export default function Matches({ openCreate = false }) {
+  const [list, setList] = useState([]);
+  const [showForm, setShowForm] = useState(openCreate);
+  const [current, setCurrent] = useState(null);
+  const [form, setForm] = useState({
+    title: "Rhema Society",
+    description: "",
+    date: "",
+    games: 1,
+    organization: [],
+  });
 
-  useEffect(()=>{(async()=>{ setList(await getMatches()) })()}, [])
+  useEffect(() => {
+    (async () => {
+      setList(await getMatches());
+    })();
+  }, []);
 
-  async function handleCreate(e){
-    e.preventDefault()
-    const id = await addMatch(form)
-    const matches = await getMatches()
-    setList(matches)
-    const created = matches.find(x=> x.id === id) || matches[0] || null
-    setCurrent(created)
-    setShowForm(false)
-    setForm({title:'Rhema Society', description:'', date:'', games:1, organization:[]})
+  async function handleCreate(e) {
+    e.preventDefault();
+    const id = await addMatch(form);
+    const matches = await getMatches();
+    setList(matches);
+    const created = matches.find((x) => x.id === id) || matches[0] || null;
+    setCurrent(created);
+    setShowForm(false);
+    setForm({
+      title: "Rhema Society",
+      description: "",
+      date: "",
+      games: 1,
+      organization: [],
+    });
   }
 
-  async function openMatch(id){
-    const m = (await getMatches()).find(x=>x.id===id)
-    setCurrent(m)
+  async function openMatch(id) {
+    const m = (await getMatches()).find((x) => x.id === id);
+    setCurrent(m);
   }
 
-  async function saveMatch(m){
-    await updateMatch(m.id, m)
-    setList(await getMatches())
-    setCurrent(m)
+  async function saveMatch(m) {
+    await updateMatch(m.id, m);
+    setList(await getMatches());
+    setCurrent(m);
   }
 
-  useEffect(()=>{ if(openCreate) setShowForm(true) }, [openCreate])
+  useEffect(() => {
+    /* eslint-disable-next-line react-hooks/set-state-in-effect */
+    if (openCreate) setShowForm(true);
+  }, [openCreate]);
 
   return (
-    <div style={{maxWidth: '1400px', margin: '0 auto'}}>
+    <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header Section */}
-      <div style={{marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid #222'}}>
+      <div
+        style={{
+          marginBottom: "2rem",
+          paddingBottom: "1.5rem",
+          borderBottom: "1px solid #222",
+        }}
+      >
         <div className="mb-4">
-          <h1 className="text-warning mb-1" style={{fontSize: '2.5rem', fontWeight: '700', letterSpacing: '-0.5px'}}>Partidas</h1>
-          <p className="text-muted" style={{fontSize: '0.95rem', marginBottom: 0}}>Organize e gerencie seus jogos</p>
+          <h1
+            className="text-warning mb-1"
+            style={{
+              fontSize: "2.5rem",
+              fontWeight: "700",
+              letterSpacing: "-0.5px",
+            }}
+          >
+            Partidas
+          </h1>
+          <p
+            className="text-muted"
+            style={{ fontSize: "0.95rem", marginBottom: 0 }}
+          >
+            Organize e gerencie seus jogos
+          </p>
         </div>
-        <button 
-          className="btn btn-warning" 
-          onClick={()=>setShowForm(s=>!s)}
+        <button
+          className="btn btn-warning"
+          onClick={() => setShowForm((s) => !s)}
           style={{
-            fontSize: '0.95rem',
-            fontWeight: '600',
-            padding: '0.6rem 1.5rem',
-            borderRadius: '8px',
-            transition: 'all 0.3s ease'
+            fontSize: "0.95rem",
+            fontWeight: "600",
+            padding: "0.6rem 1.5rem",
+            borderRadius: "8px",
+            transition: "all 0.3s ease",
           }}
         >
-          {showForm ? '✕ Fechar' : '+ Nova Partida'}
+          {showForm ? "✕ Fechar" : "+ Nova Partida"}
         </button>
       </div>
 
       {/* Form Section */}
       {showForm && (
-        <div style={{marginBottom: '2rem', animation: 'slideIn 0.3s ease'}}>
-          <form 
-            className="card" 
+        <div style={{ marginBottom: "2rem", animation: "slideIn 0.3s ease" }}>
+          <form
+            className="card"
             onSubmit={handleCreate}
             style={{
-              background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
-              border: '1px solid #333',
-              borderRadius: '12px',
-              padding: '2rem',
-              backdropFilter: 'blur(10px)'
+              background: "linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)",
+              border: "1px solid #333",
+              borderRadius: "12px",
+              padding: "2rem",
+              backdropFilter: "blur(10px)",
             }}
           >
-            <h3 className="text-warning mb-4" style={{fontSize: '1.3rem', fontWeight: '600'}}>Criar Nova Partida</h3>
-            
+            <h3
+              className="text-warning mb-4"
+              style={{ fontSize: "1.3rem", fontWeight: "600" }}
+            >
+              Criar Nova Partida
+            </h3>
+
             <div className="row g-4">
               <div className="col-12 col-md-6">
-                <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Título *</label>
-                <input 
-                  className="form-control" 
-                  value={form.title} 
-                  onChange={e=>setForm(s=>({...s, title:e.target.value}))}
+                <label
+                  className="form-label"
                   style={{
-                    background: '#0a0a0a',
-                    border: '1px solid #444',
-                    borderRadius: '8px',
-                    padding: '0.75rem 1rem',
-                    color: '#fff',
-                    fontSize: '0.95rem'
+                    color: "#ffc107",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Título *
+                </label>
+                <input
+                  className="form-control"
+                  value={form.title}
+                  onChange={(e) =>
+                    setForm((s) => ({ ...s, title: e.target.value }))
+                  }
+                  style={{
+                    background: "#0a0a0a",
+                    border: "1px solid #444",
+                    borderRadius: "8px",
+                    padding: "0.75rem 1rem",
+                    color: "#fff",
+                    fontSize: "0.95rem",
                   }}
                 />
               </div>
               <div className="col-12 col-md-6">
-                <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Data</label>
-                <DatePicker value={form.date} onChange={(d)=>setForm(s=>({...s, date: d}))} />
+                <label
+                  className="form-label"
+                  style={{
+                    color: "#ffc107",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Data
+                </label>
+                <DatePicker
+                  value={form.date}
+                  onChange={(d) => setForm((s) => ({ ...s, date: d }))}
+                />
               </div>
               <div className="col-12">
-                <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Descrição</label>
-                <input 
-                  className="form-control" 
-                  value={form.description} 
-                  onChange={e=>setForm(s=>({...s, description:e.target.value}))}
+                <label
+                  className="form-label"
                   style={{
-                    background: '#0a0a0a',
-                    border: '1px solid #444',
-                    borderRadius: '8px',
-                    padding: '0.75rem 1rem',
-                    color: '#fff',
-                    fontSize: '0.95rem'
+                    color: "#ffc107",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Descrição
+                </label>
+                <input
+                  className="form-control"
+                  value={form.description}
+                  onChange={(e) =>
+                    setForm((s) => ({ ...s, description: e.target.value }))
+                  }
+                  style={{
+                    background: "#0a0a0a",
+                    border: "1px solid #444",
+                    borderRadius: "8px",
+                    padding: "0.75rem 1rem",
+                    color: "#fff",
+                    fontSize: "0.95rem",
                   }}
                 />
               </div>
               <div className="col-12 col-md-6">
-                <label className="form-label" style={{color: '#ffc107', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.5rem'}}>Quantidade de Jogos</label>
-                <input 
-                  type="number" 
-                  min={1} 
-                  className="form-control" 
-                  value={form.games} 
-                  onChange={e=>setForm(s=>({...s, games: Number(e.target.value)}))}
+                <label
+                  className="form-label"
                   style={{
-                    background: '#0a0a0a',
-                    border: '1px solid #444',
-                    borderRadius: '8px',
-                    padding: '0.75rem 1rem',
-                    color: '#fff',
-                    fontSize: '0.95rem'
+                    color: "#ffc107",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Quantidade de Jogos
+                </label>
+                <input
+                  type="number"
+                  min={1}
+                  className="form-control"
+                  value={form.games}
+                  onChange={(e) =>
+                    setForm((s) => ({ ...s, games: Number(e.target.value) }))
+                  }
+                  style={{
+                    background: "#0a0a0a",
+                    border: "1px solid #444",
+                    borderRadius: "8px",
+                    padding: "0.75rem 1rem",
+                    color: "#fff",
+                    fontSize: "0.95rem",
                   }}
                 />
               </div>
 
               <div className="col-12 d-flex gap-2 pt-3">
-                <button 
-                  className="btn btn-warning" 
+                <button
+                  className="btn btn-warning"
                   type="submit"
                   style={{
-                    fontSize: '0.95rem',
-                    fontWeight: '600',
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '8px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
+                    fontSize: "0.95rem",
+                    fontWeight: "600",
+                    padding: "0.75rem 1.5rem",
+                    borderRadius: "8px",
+                    border: "none",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
                   }}
                 >
                   ✓ Criar Partida
                 </button>
-                <button 
-                  className="btn btn-outline-light" 
-                  type="button" 
-                  onClick={()=>setShowForm(false)}
+                <button
+                  className="btn btn-outline-light"
+                  type="button"
+                  onClick={() => setShowForm(false)}
                   style={{
-                    fontSize: '0.95rem',
-                    fontWeight: '600',
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '8px',
-                    border: '1px solid #555',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
+                    fontSize: "0.95rem",
+                    fontWeight: "600",
+                    padding: "0.75rem 1.5rem",
+                    borderRadius: "8px",
+                    border: "1px solid #555",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
                   }}
                 >
                   ✕ Cancelar
@@ -172,21 +265,22 @@ export default function Matches({openCreate=false}){
       {/* Content Section */}
       <div className="row g-4">
         <div className="col-12 col-lg-5">
-          <div style={{display: 'grid', gap: '1rem'}}>
+          <div style={{ display: "grid", gap: "1rem" }}>
             {list.length === 0 ? (
-              <div 
+              <div
                 style={{
-                  textAlign: 'center',
-                  padding: '2rem',
-                  borderRadius: '12px',
-                  background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
-                  border: '1px solid #333'
+                  textAlign: "center",
+                  padding: "2rem",
+                  borderRadius: "12px",
+                  background:
+                    "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)",
+                  border: "1px solid #333",
                 }}
               >
                 <p className="text-muted">Nenhuma partida criada</p>
               </div>
             ) : (
-              list.map(m=> <MatchCard key={m.id} m={m} onOpen={openMatch} />)
+              list.map((m) => <MatchCard key={m.id} m={m} onOpen={openMatch} />)
             )}
           </div>
         </div>
@@ -195,16 +289,18 @@ export default function Matches({openCreate=false}){
           {current ? (
             <MatchDetail match={current} onSave={saveMatch} />
           ) : (
-            <div 
+            <div
               style={{
-                padding: '3rem',
-                textAlign: 'center',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
-                border: '1px solid #333'
+                padding: "3rem",
+                textAlign: "center",
+                borderRadius: "12px",
+                background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)",
+                border: "1px solid #333",
               }}
             >
-              <p className="text-muted">Selecione uma partida para ver/editar</p>
+              <p className="text-muted">
+                Selecione uma partida para ver/editar
+              </p>
             </div>
           )}
         </div>
@@ -223,5 +319,5 @@ export default function Matches({openCreate=false}){
         }
       `}</style>
     </div>
-  )
+  );
 }

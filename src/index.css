@@ -14,10 +14,12 @@
   --glass: rgba(255, 255, 255, 0.03);
   --card-radius: 14px;
   --card-shadow: 0 6px 24px rgba(2, 6, 23, 0.6);
+
   color-scheme: dark;
   color: #e9eef2;
   background: linear-gradient(135deg, #0a0e1a 0%, #141b28 50%, #0f1620 100%);
   background-attachment: fixed;
+
   font-family: var(--font-sans);
   line-height: 1.45;
   font-weight: 400;
@@ -60,6 +62,7 @@ a {
   color: #666;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #888;
 }
@@ -75,7 +78,8 @@ body,
 }
 
 body {
-  background: radial-gradient(
+  background:
+    radial-gradient(
       1200px 600px at 10% 10%,
       rgba(100, 108, 255, 0.06),
       transparent
@@ -98,8 +102,11 @@ button {
   font-family: var(--font-sans);
   background-color: transparent;
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
 }
+
 button:active {
   transform: translateY(1px);
 }
@@ -111,6 +118,7 @@ button:active {
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(246, 200, 76, 0.14);
 }
+
 .btn-ghost {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -122,9 +130,11 @@ button:active {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
@@ -154,6 +164,7 @@ button:active {
   gap: 1rem;
   padding: 1rem 0;
 }
+
 .brand {
   display: flex;
   gap: 0.75rem;
@@ -161,6 +172,7 @@ button:active {
   text-decoration: none;
   color: inherit;
 }
+
 .brand .logo-mark {
   width: 44px;
   height: 44px;
@@ -172,11 +184,13 @@ button:active {
   justify-content: center;
   font-weight: 800;
 }
+
 .nav {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
+
 .nav a {
   color: var(--muted);
   padding: 0.5rem 0.7rem;
@@ -184,6 +198,7 @@ button:active {
   font-weight: 600;
   text-decoration: none;
 }
+
 .nav a.active,
 .nav a:hover {
   color: var(--accent);
@@ -195,14 +210,17 @@ nav.navbar {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
 nav.navbar .app-container {
   padding-left: 0 !important;
   padding-right: 0 !important;
   width: 100%;
 }
+
 .navbar-brand {
   margin-left: 0;
 }
+
 .page-container {
   padding: 0;
 }
@@ -223,6 +241,7 @@ nav.navbar .app-container {
 .app-container {
   border-left: none;
 }
+
 nav.navbar {
   border-left: none;
 }
@@ -239,6 +258,7 @@ nav.navbar {
   box-shadow: var(--card-shadow);
   border: 1px solid rgba(255, 255, 255, 0.03);
 }
+
 .card-quiet {
   background: transparent;
   box-shadow: none;
@@ -257,17 +277,23 @@ nav.navbar {
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
 }
+
 .participant-card:hover,
 .match-card:hover {
   transform: translateY(-2px);
   border-color: rgba(246, 200, 76, 0.25);
   background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
 }
+
 .participant-avatar {
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(246, 200, 76, 0.2) 0%, rgba(246, 200, 76, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(246, 200, 76, 0.2) 0%,
+    rgba(246, 200, 76, 0.1) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -276,6 +302,7 @@ nav.navbar {
   border: 1px solid rgba(246, 200, 76, 0.2);
   flex-shrink: 0;
 }
+
 .meta {
   color: var(--muted);
   font-size: 0.9rem;
@@ -292,6 +319,7 @@ textarea {
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
 }
+
 input::placeholder {
   color: rgba(255, 255, 255, 0.35);
 }
@@ -307,6 +335,7 @@ input::placeholder {
 .text-brand {
   color: var(--brand-yellow);
 }
+
 .muted {
   color: var(--muted);
 }
@@ -322,6 +351,7 @@ input::placeholder {
   width: 100%;
   background-color: #212529;
 }
+
 .nav-actions-list {
   list-style: none;
   margin: 0;
@@ -330,6 +360,7 @@ input::placeholder {
   gap: 18px;
   align-items: center;
 }
+
 .nav-item {
   display: flex;
   gap: 8px;
@@ -338,8 +369,12 @@ input::placeholder {
   padding: 8px 14px;
   border-radius: 12px;
   color: var(--muted);
-  transition: color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+  transition:
+    color 0.12s ease,
+    background 0.12s ease,
+    box-shadow 0.12s ease;
 }
+
 .nav-item:hover {
   background: linear-gradient(
     180deg,
@@ -348,12 +383,18 @@ input::placeholder {
   );
   color: var(--brand-yellow);
 }
+
 .nav-item.active {
-  background: linear-gradient(213deg, rgb(255 247 0 / 14%), rgb(238 241 1 / 6%));
+  background: linear-gradient(
+    213deg,
+    rgb(255 247 0 / 14%),
+    rgb(238 241 1 / 6%)
+  );
   color: white;
   box-shadow: 0 6px 18px rgba(6, 8, 12, 0.5);
   border: 1px solid rgba(100, 108, 255, 0.12);
 }
+
 .nav-icon {
   display: inline-flex;
   width: 20px;
@@ -362,6 +403,7 @@ input::placeholder {
   justify-content: center;
   color: var(--muted);
 }
+
 .nav-label {
   font-weight: 600;
   font-size: 0.95rem;
@@ -375,9 +417,11 @@ nav.navbar .app-container {
   padding-left: 2rem;
   padding-right: 2rem;
 }
+
 .px-2 {
   color: yellow;
 }
+
 .text-muted {
   color: yellow;
 }
@@ -389,6 +433,6 @@ nav.navbar .app-container {
   flex-wrap: wrap;
 }
 
-.btn btn-sm btn-ghost {
+.btn.btn-sm.btn-ghost {
   padding: 0.25rem 0.5rem;
 }
